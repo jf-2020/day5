@@ -1,5 +1,6 @@
-# intro_to_algorithms.py - this prgm is a group exercises, completing the given
-#                          introductory algorithms problems
+# intro_to_algorithms.py - this prgm is was a group exercise, though it was completed
+#                          in full by jf. the problems are intoductory algorithm questions
+#                          wherein builtins are to be largerly avoided in their solution.
 #
 # 4/20 - jf
 
