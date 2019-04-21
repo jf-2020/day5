@@ -471,6 +471,139 @@ def main_7():
     print("The sum of all positive integers divisible by 3 or 5:", sum_odds_by_three_fives())
 
 
+##################################
+### Sum Even Fibonacci Numbers ###
+##################################
+
+
+def fib_n(n):
+    '''
+    parameter:
+        n -> Int
+    return:
+        Int
+    '''
+
+    # computes the nth fibonacci number, F(n) = F(n-1) + F(n-2)
+
+    # store initial conditions, F(0) = F(1) = 1
+    a, b = 1, 1
+    
+    # return the base cases if necessary
+    if n == 0 or n == 1:
+        return a
+    
+    else:
+        
+        # to compute F(n) when n > 1, need to iterate thru the computation
+        # from n = 2 up to n = n - 1. thus, range(2,n) is used.
+        for _ in range(2,n):
+        
+            # store F(n-1) in a & F(n) in b 
+            a, b = b, a+b
+        
+        return b
+
+def solves_the_problem():
+    '''
+    parameter:
+        None
+    return:
+        running_sum -> Int
+    '''
+    
+    # computes the sum of the fibonacci numbers that're both even and
+    # less than or equal to 4,000,000
+
+    # store maximum value of the fibonacci sequence to compute to
+    MAX = 4 * (10**6)
+
+    # initiliaze a counter & total sum 
+    count = 0
+    running_sum = 0
+
+    # iterate until the running sum is less than 4,000,000
+    while running_sum <= MAX:
+        
+        # compute the current fibonacci number
+        fib = fib_n(count)
+
+        # check whether or not the current fibonacci number's value is even
+        if fib % 2 == 0:
+            
+            # if it is, then bump up the running sum by the fibonacci number's
+            # value
+            running_sum += fib
+
+        # bump up the count
+        count += 1
+
+    return running_sum
+
+def main_8():
+    # main function associated with fibonacci problem
+
+    print("The sum of the all even-valued fibonacci's whose value <= 4,000,000: %d" % solves_the_problem())
+
+
+####################
+### Average Pair ###
+####################
+
+
+def average_pair(lst, avg):
+    '''
+    parameters:
+        lst -> List
+        avg -> Float (or Int, depending)
+    return:
+        Boolean
+    '''
+
+    # the approach to this problem is the naive one. the idea is to the loop over the list of
+    # numbers, checking a particular number against all the rest of the numbers in the list &
+    # determine whether or not the average of those two numbers is equal to the target average.
+    # with this method, in the worst case scenario, since the loop proceeds linearly, from left
+    # to right, the average, assuming it exists as an average of two numbers in the list, it
+    # could be the average of the last two numbers in the list. this requires n - 2 executions
+    # of the outer loop, where each such loop requires n - 1 executions of the inner loop. that's
+    # a total of (n-2)*(n-1) primitive executions = O(n^2 => quadratic time. there's probably a
+    # better way.
+
+    # loop over all the numbers in the list
+    for number in lst:
+
+        # store the rest of the numbers over which to loop in another iterable
+        rest_of_numbers = [num for num in lst if num != number]
+
+        # loop over all of said rest of numbers
+        for another_number in rest_of_numbers:
+
+            # compute the average of these two numbers
+            average = (another_number + number) / 2
+
+            # check to see if it equals the target average
+            if average == avg:
+
+                # if it does, return True
+                return True
+
+    # otherwise, making it through the doubly nested loops means the average does
+    # not exist in the list as such 
+    return False
+
+def main_9():
+    # main function associated with the Average Pair problem
+
+    tests = [([1, 2, 3], 2.5),
+             ([-1, 0, 3, 4, 5, 6], 4.1)
+            ]
+    
+    for test in tests:
+        print("Testing", test[1], "against", test[0])
+        print("Does the average exist?", average_pair(test[0], test[1]))
+
+
 # to be run as script:
 if __name__ == "__main__":
     # main_0()
@@ -480,4 +613,6 @@ if __name__ == "__main__":
     # main_4()
     # main_5()
     # main_6()
-    main_7()
+    # main_7()
+    # main_8()
+    main_9()
